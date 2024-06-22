@@ -37,22 +37,18 @@ public class Program
 
             groupBuilder
                 .MapPost(string.Empty, CreateOrderEndpoint.Handle)
-                .WithDescription("...")
                 .WithOpenApi();
 
             groupBuilder
                 .MapPost("{id:guid}/pay", PayOrderEndpoint.Handle)
-                .WithDescription("...")
                 .WithOpenApi();
 
             groupBuilder
                 .MapPut("{id:guid}/address", UpdateOrderAddressEndpoint.Handle)
-                .WithDescription("...")
                 .WithOpenApi();
 
             groupBuilder
                 .MapPut("{id:guid}/complete", CompleteOrderEndpoint.Handle)
-                .WithDescription("...")
                 .WithOpenApi();
         }
 

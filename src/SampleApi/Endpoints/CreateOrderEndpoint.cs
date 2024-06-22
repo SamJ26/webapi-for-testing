@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SampleApi.Domain;
 using SampleApi.Persistence;
@@ -6,7 +7,7 @@ namespace SampleApi.Endpoints;
 
 internal sealed class CreateOrderEndpoint
 {
-    public static async Task<IResult> Handle([FromServices] OrderRepository repository)
+    public static async Task<Ok<Response>> Handle([FromServices] OrderRepository repository)
     {
         var order = new OrderEntity();
         await repository.CreateAsync(order);

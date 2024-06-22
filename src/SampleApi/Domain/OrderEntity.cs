@@ -12,10 +12,7 @@ internal sealed class OrderEntity
         string city,
         string street)
     {
-        if (Status != OrderStatus.InProgress)
-        {
-            throw new Exception("Unable to set delivery address!");
-        }
+        ValidateStatus(OrderStatus.InProgress);
 
         DeliveryAddress = new Address()
         {
@@ -25,19 +22,31 @@ internal sealed class OrderEntity
         };
     }
 
+    public void Complete()
+    {
+        ValidateStatus(OrderStatus.InProgress);
+
+        if (DeliveryAddress is null)
+        {
+            throw new Exception("Delivery address is missing!");
+        }
+
+        Status = OrderStatus.Completed;
+    }
+
     public void Pay(Guid paymentId)
     {
-        if (Status != OrderStatus.Completed)
-        {
-            throw new Exception("Unable to set payment id!");
-        }
+        ValidateStatus(OrderStatus.Completed);
 
         PaymentId = paymentId;
         Status = OrderStatus.Paid;
     }
 
-    public void Complete()
+    private void ValidateStatus(OrderStatus requiredStatus)
     {
-        Status = OrderStatus.Completed;
+        if (Status != requiredStatus)
+        {
+            throw new Exception($"Operation is not supported for the order in status {Status}!");
+        }
     }
 }

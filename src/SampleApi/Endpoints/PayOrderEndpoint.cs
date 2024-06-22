@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SampleApi.Persistence;
 
@@ -5,7 +6,7 @@ namespace SampleApi.Endpoints;
 
 internal sealed class PayOrderEndpoint
 {
-    public static async Task<IResult> Handle(
+    public static async Task<Ok> Handle(
         [AsParameters] Request req,
         [FromServices] OrderRepository repository)
     {
