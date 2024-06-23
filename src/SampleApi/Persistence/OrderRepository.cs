@@ -10,12 +10,8 @@ internal sealed class OrderRepository
 
     public OrderRepository(IOptions<MongoDbSettings> mongoDbSettings)
     {
-        var mongoClient = new MongoClient(
-            mongoDbSettings.Value.ConnectionString);
-
-        var mongoDatabase = mongoClient.GetDatabase(
-            mongoDbSettings.Value.DatabaseName);
-
+        var mongoClient = new MongoClient(mongoDbSettings.Value.ConnectionString);
+        var mongoDatabase = mongoClient.GetDatabase(mongoDbSettings.Value.DatabaseName);
         _ordersCollection = mongoDatabase.GetCollection<OrderEntity>("orders");
     }
 
