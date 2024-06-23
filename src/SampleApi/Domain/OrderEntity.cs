@@ -1,3 +1,5 @@
+using SampleApi.Domain.Exceptions;
+
 namespace SampleApi.Domain;
 
 internal sealed class OrderEntity
@@ -28,7 +30,7 @@ internal sealed class OrderEntity
 
         if (DeliveryAddress is null)
         {
-            throw new Exception("Delivery address is missing!");
+            throw new IncompleteOrderException("Cannot complete the order because delivery address is missing!");
         }
 
         Status = OrderStatus.Completed;
@@ -46,7 +48,7 @@ internal sealed class OrderEntity
     {
         if (Status != requiredStatus)
         {
-            throw new Exception($"Operation is not supported for the order in status {Status}!");
+            throw new InvalidOrderOperationException($"Operation is not supported for the order in status {Status}!");
         }
     }
 }
